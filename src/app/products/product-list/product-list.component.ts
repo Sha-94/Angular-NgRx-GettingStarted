@@ -7,11 +7,12 @@ import { ProductService } from '../product.service';
 
 /* NgRx */
 import { Store } from '@ngrx/store';
+import { State } from '../state/product.reducer';
 
 @Component({
   selector: 'pm-product-list',
   templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.css']
+  styleUrls: ['./product-list.component.css'],
 })
 export class ProductListComponent implements OnInit, OnDestroy {
   pageTitle = 'Products';
@@ -25,25 +26,27 @@ export class ProductListComponent implements OnInit, OnDestroy {
   selectedProduct: Product | null;
   sub: Subscription;
 
-  constructor(private store: Store<any>, private productService: ProductService) { }
+  constructor(
+    private store: Store<State>,
+    private productService: ProductService
+  ) {}
 
   ngOnInit(): void {
     this.sub = this.productService.selectedProductChanges$.subscribe(
-      currentProduct => this.selectedProduct = currentProduct
+      (currentProduct) => (this.selectedProduct = currentProduct)
     );
 
     this.productService.getProducts().subscribe({
-      next: (products: Product[]) => this.products = products,
-      error: err => this.errorMessage = err
+      next: (products: Product[]) => (this.products = products),
+      error: (err) => (this.errorMessage = err),
     });
 
     // TODO: Unsubscribe
-    this.store.select('products').subscribe(
-      products => {
-        if (products) {
-          this.displayCode = products.showProductCode;
-        }
-      });
+    this.store.select('products').subscribe((products) => {
+      if (products) {
+        this.displayCode = products.showProductCod;
+      }
+    });
   }
 
   ngOnDestroy(): void {
@@ -51,9 +54,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
   }
 
   checkChanged(): void {
-    this.store.dispatch(
-      { type: '[Product] Toggle Product Code' }
-    );
+    this.store.dispatch({ type: '[Product] Toggle Product Code' });
   }
 
   newProduct(): void {
@@ -63,5 +64,4 @@ export class ProductListComponent implements OnInit, OnDestroy {
   productSelected(product: Product): void {
     this.productService.changeSelectedProduct(product);
   }
-
 }
