@@ -1,3 +1,5 @@
+// 1
+
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
@@ -17,13 +19,20 @@ import { PageNotFoundComponent } from './home/page-not-found.component';
 /* Feature Modules */
 import { UserModule } from './user/user.module';
 
+import { StoreModule} from '@ngrx/store'
+
 @NgModule({
   imports: [
     BrowserModule,
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(ProductData),
     UserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    /*
+    1. Syntax forRoot( reducer Object, config object ) 
+    */
+    StoreModule.forRoot({},{})
+    
   ],
   declarations: [
     AppComponent,
