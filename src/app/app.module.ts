@@ -21,6 +21,18 @@ import { UserModule } from './user/user.module';
 
 import { StoreModule} from '@ngrx/store'
 
+/* 
+Installing Redux Devtools 
+1. Install browser Redux Devtools extenstion
+2. Install @ngrx/store-devtools
+3. Initialize @ngrx/store-devtools module like this: 
+    StoreDevtoolsModule.instrument({
+      name: 'APM Demo App Devtools, <---- If running multiple apps, this allows filtering 
+      maxAge: 25 <--- Default is 50, redux will start deleting history once limit is hit
+      logOnly: environment.production <---- Disables all extention features except logging if true
+    })
+*/ 
+
 @NgModule({
   imports: [
     BrowserModule,
