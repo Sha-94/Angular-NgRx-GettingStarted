@@ -1,6 +1,10 @@
 import { Product } from '../product';
 
-/* NgRx */
+/*Befits of Strongly Typed Actions
+* 1. Prevents hard to find errors
+* 2, Improves the tooling experience
+* 3. Documents the set of valid actions
+* */
 import { createAction, props } from '@ngrx/store';
 
 export const toggleProductCode = createAction(
